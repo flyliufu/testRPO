@@ -1,0 +1,23 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitdust/testRepository.git"
+  },
+  "author": "fangchao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gitdust/testRepository/issues"
+  },
+  "homepage": "https://github.com/gitdust/testRepository#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-less": "^3.0.5"
+  }
+}
