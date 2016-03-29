@@ -1,0 +1,23 @@
+{
+  "name": "testRepository",
+  "description": "",
+  "main": "index.html",
+  "moduleType": [],
+  "authors": [
+    "fangchao"
+  ],
+  "license": "MIT",
+  "homepage": "index.html",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "scripts/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.2"
+  }
+}
