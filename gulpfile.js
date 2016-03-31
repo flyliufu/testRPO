@@ -3,7 +3,8 @@ var $ = require('gulp-load-plugins')();
 
 gulp.task('serve', function() {
     $.connect.server({
-        livereload: true
+        livereload: true,
+        port: 8000
     });
 });
 gulp.task('less',function(){
