@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var lazypipe = require('lazypipe');
+var open = require('open');
 
 var path = {
     app: 'app',
@@ -34,12 +35,15 @@ var paths = {
 //     .pipe(gulp.dest, 'app/scripts/templates/');
 
 
-gulp.task('serve', function() {
+gulp.task('start:serve', function() {
     $.connect.server({
         root: [path.app, path.app + '/views/', '.tmp', 'dist'],
         livereload: true,
         port: 8000
     });
+});
+gulp.task('start:client', ['less', 'handlebars', 'start:server'], function() {
+    open('http://localhost:8000');
 });
 gulp.task('less', function() {
     gulp.src(paths.styles)
@@ -57,6 +61,11 @@ gulp.task('handlebars', function() {
 });
 gulp.task('watch', function() {
     gulp.watch(paths.styles, ['less']);
+});
+
+gulp.task('serve', function(cb) {
+    $.runSequence(['start:client'],
+        'watch', cb);
 });
 
 gulp.task('default', ['serve', 'less', 'watch']);

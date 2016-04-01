@@ -24,6 +24,8 @@
     "gulp-load-plugins": "^1.2.0",
     "gulp-handlebars": "^4.0.0",
     "lazypipe": "^1.0.1",
-    "gulp-plumber": "^1.1.0"
+    "gulp-plumber": "^1.1.0",
+    "gulp-run-sequence": "^0.3.2",
+    "open": "^0.0.5"
   }
 }
