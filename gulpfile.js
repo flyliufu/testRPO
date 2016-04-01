@@ -25,7 +25,8 @@ var paths = {
 // var styles = lazypipe()
 //     .pipe($.less)
 //     .pipe($.autoprefixer, 'last 2 version')
-//     .pipe(gulp.dest, '.tmp/styles');
+//     .pipe(gulp.dest, '.tmp/styles')
+//     .pipe($.connect.reload());
 
 // var handlebars = lazypipe()
 //     .pipe($.handlebars)
@@ -42,8 +43,16 @@ gulp.task('serve', function() {
 });
 gulp.task('less', function() {
     gulp.src(paths.styles)
-        .pipe($.less())
+        .pipe($.plumber())
         .pipe(gulp.dest('.tmp/styles'))
+        .pipe($.connect.reload());
+});
+gulp.task('handlebars', function() {
+    gulp.src(paths.handlebars)
+        .pipe($.plumber())
+        .pipe($.handlebars)
+        .pipe($.defineModule, 'amd')
+        .pipe(gulp.dest('app/scripts/templates/'))
         .pipe($.connect.reload());
 });
 gulp.task('watch', function() {
