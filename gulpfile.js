@@ -35,23 +35,23 @@ var paths = {
 //     .pipe(gulp.dest, 'app/scripts/templates/');
 
 
-gulp.task('start:serve', function() {
+gulp.task('start:serve', function () {
     $.connect.server({
         root: [path.app, path.app + '/views/', '.tmp', 'dist'],
         livereload: true,
         port: 8000
     });
 });
-gulp.task('start:client', ['less', 'handlebars', 'start:server'], function() {
+gulp.task('start:client', ['less', 'handlebars', 'start:server'], function () {
     open('http://localhost:8000');
 });
-gulp.task('less', function() {
+gulp.task('less', function () {
     gulp.src(paths.styles)
         .pipe($.plumber())
         .pipe(gulp.dest('.tmp/styles'))
         .pipe($.connect.reload());
 });
-gulp.task('handlebars', function() {
+gulp.task('handlebars', function () {
     gulp.src(paths.handlebars)
         .pipe($.plumber())
         .pipe($.handlebars)
@@ -59,11 +59,11 @@ gulp.task('handlebars', function() {
         .pipe(gulp.dest('app/scripts/templates/'))
         .pipe($.connect.reload());
 });
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     gulp.watch(paths.styles, ['less']);
 });
 
-gulp.task('serve', function(cb) {
+gulp.task('serve', function (cb) {
     $.runSequence(['start:client'],
         'watch', cb);
 });
