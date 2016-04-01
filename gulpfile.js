@@ -1,51 +1,53 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var lazypipe = require('lazypipe');
 
-gulp.task('serve', function() {
-    $.connect.server({
-        livereload: true,
-        port: 8000
-    });
-});
-gulp.task('less',function(){
-	gulp.src('app/styles/**/*.less')
-	.pipe($.less())
-	.pipe(gulp.dest('app/styles'))
-	.pipe($.connect.reload());
-});
-gulp.task('watch',function(){
-	gulp.watch('app/styles/**/*.less',['less']);
-});
-
-gulp.task('default',['less','serve','watch']);
-// var less = require('gulp-less');
-
-// gulp.task('less',function(){
-// 	gulp.src('styles/**/*.less')
-// 	.pipe(less())
-// 	.pipe(gulp.dest('styles'));
-// });
 var path = {
     app: 'app',
     dist: 'dist'
 };
 
+var paths = {
+    scripts: [path.app + '/scripts/**/*.js'],
+    styles: [path.app + '/styles/**/*.less'],
+    templates: [path.app + '/templates/**/*.hbs'],
+    views: [path.app + '/views/**/*.html']
+};
 
-// var connect = require('gulp-connect');
-// gulp.task('watch', function() {
-//     gulp.watch(['app/views/*.html'], ['html']);
-// });
 
-// gulp.task('connect', function() {
-//     connect.server({
-//         root: 'www',
-//         livereload: true
-//     });
-// });
+////////////////////////
+// Reusable pipelines //
+////////////////////////
 
-// gulp.task('html', function() {
-//     gulp.src('./www/*.html')
-//         .pipe(connect.reload());
-// });
+// var hintScripts = lazypipe()
+//     .pipe($.jshint, '.jshintrc');
 
-// gulp.task('default', ['connect', 'watch']);
+// var styles = lazypipe()
+//     .pipe($.less)
+//     .pipe($.autoprefixer, 'last 2 version')
+//     .pipe(gulp.dest, '.tmp/styles');
+
+// var handlebars = lazypipe()
+//     .pipe($.handlebars)
+//     .pipe($.defineModule, 'amd')
+//     .pipe(gulp.dest, 'app/scripts/templates/');
+
+
+gulp.task('serve', function() {
+    $.connect.server({
+        root: [path.app, path.app + '/views/', '.tmp', 'dist'],
+        livereload: true,
+        port: 8000
+    });
+});
+gulp.task('less', function() {
+    gulp.src(paths.styles)
+        .pipe($.less())
+        .pipe(gulp.dest('.tmp/styles'))
+        .pipe($.connect.reload());
+});
+gulp.task('watch', function() {
+    gulp.watch(paths.styles, ['less']);
+});
+
+gulp.task('default', ['serve', 'less', 'watch']);
